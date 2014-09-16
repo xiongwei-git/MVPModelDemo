@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.ted.mvpdemo.DB.ScoreInfoDBUtil;
 import com.ted.mvpdemo.Presenter.UserInfoPresenterImpl;
 import com.ted.mvpdemo.R;
 import com.ted.mvpdemo.View.UserInfoView;
@@ -23,6 +24,9 @@ public class MyActivity extends Activity implements UserInfoView, View.OnClickLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ScoreInfoDBUtil scoreInfoDBUtil = new ScoreInfoDBUtil(this);
+        scoreInfoDBUtil.queryAll();
+
         setContentView(R.layout.main);
         mInfoId = (EditText)findViewById(R.id.info_id);
         mInfoName = (EditText)findViewById(R.id.info_name);

@@ -11,34 +11,34 @@ import java.util.List;
 /**
  * Created by Ted on 14-7-29.
  */
-public class UserInfoDBUtil {
+public class ScoreInfoDBUtil {
     private Context mContext;
     DBHelper mDBHelper;
-    RuntimeExceptionDao<UserInfoDBItem, Integer> mUserInfoRunDao;
+    RuntimeExceptionDao<ScoreInfoItem, Integer> mScoreInfoRunDao;
 
-    public UserInfoDBUtil(Context context) {
+    public ScoreInfoDBUtil(Context context) {
         this.mContext = context;
         mDBHelper = OpenHelperManager.getHelper(mContext, DBHelper.class);
-        mUserInfoRunDao = mDBHelper.getUserInfoRunDao();
+        mScoreInfoRunDao = mDBHelper.getScoreInfoRunDao();
     }
 
     /**
      * 插入
      */
-    public void insert(UserInfoDBItem houseInfo) {
-        mUserInfoRunDao.createOrUpdate(houseInfo);
+    public void insert(ScoreInfoItem scoreInfoItem) {
+        mScoreInfoRunDao.createOrUpdate(scoreInfoItem);
     }
 
     /**
      * 按照指定的id 删除一项
      *
-     * @param houseInfo
+     * @param scoreInfoItem
      * @return 删除成功返回1 ，失败返回0
      */
-    public int delete(UserInfoDBItem houseInfo) {
+    public int delete(ScoreInfoItem scoreInfoItem) {
         try {
-            DeleteBuilder<UserInfoDBItem, Integer> deleteBuilder = mUserInfoRunDao.deleteBuilder();
-            deleteBuilder.where().eq("mUserInfoID", houseInfo.getmUserInfoID());
+            DeleteBuilder<ScoreInfoItem, Integer> deleteBuilder = mScoreInfoRunDao.deleteBuilder();
+            deleteBuilder.where().eq("id", scoreInfoItem.getId());
             return deleteBuilder.delete();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,7 +54,7 @@ public class UserInfoDBUtil {
      */
     public int delete(long infoID) {
         try {
-            DeleteBuilder<UserInfoDBItem, Integer> deleteBuilder = mUserInfoRunDao.deleteBuilder();
+            DeleteBuilder<ScoreInfoItem, Integer> deleteBuilder = mScoreInfoRunDao.deleteBuilder();
             deleteBuilder.where().eq("mUserInfoID", infoID);
             return deleteBuilder.delete();
         } catch (SQLException e) {
@@ -67,14 +67,14 @@ public class UserInfoDBUtil {
      * 删除全部
      */
     public void deleteAll() {
-        mUserInfoRunDao.delete(queryAll());
+        mScoreInfoRunDao.delete(queryAll());
     }
 
     /**
      * 查询所有的
      */
-    public List<UserInfoDBItem> queryAll() {
-        List<UserInfoDBItem> userInfos = mUserInfoRunDao.queryForAll();
+    public List<ScoreInfoItem> queryAll() {
+        List<ScoreInfoItem> userInfos = mScoreInfoRunDao.queryForAll();
         return userInfos;
     }
 
